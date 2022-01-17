@@ -55,7 +55,7 @@ add_filter('admin_footer_text', 'remove_footer_admin');
 #remover feedback de erro wordpress
 function no_wordpress_errors()
 {
-  return 'Algo deu errado, tente novamente.';
+  return 'Usuário ou senha inválido, tente novamente.';
 }
 add_filter('login_errors', 'no_wordpress_errors');
 
@@ -102,8 +102,8 @@ function login_styles()
     }
 
     .login h1 a {
-      background-image: url('<?php echo get_stylesheet_directory_uri(); ?>/img/nork-wordpress.png') !important;
-      background-image: url('<?php echo get_stylesheet_directory_uri(); ?>/img/nork-wordpress.png') !important;
+      background-image: url('http://bbcreative.org/upload/imagens/889e3e8621c81383c4e5684e96a77049.png') !important;
+      background-image: url('http://bbcreative.org/upload/imagens/889e3e8621c81383c4e5684e96a77049.png') !important;
       background-size: 100% !important;
       background-position: center center !important;
       background-repeat: no-repeat;
@@ -142,8 +142,26 @@ function remove_cssjs_ver($src)
 add_filter('style_loader_src', 'remove_cssjs_ver', 10, 2);
 add_filter('script_loader_src', 'remove_cssjs_ver', 10, 2);
 
-// remove RSD-LINK
+// EditURI link.
 remove_action('wp_head', 'rsd_link');
+
+// Windows live writer.
+remove_action('wp_head', 'wlwmanifest_link');
+
+// Index link.
+remove_action('wp_head', 'index_rel_link');
+
+// Previous link.
+remove_action('wp_head', 'parent_post_rel_link', 10, 0);
+
+// Start link.
+remove_action('wp_head', 'start_post_rel_link', 10, 0);
+
+// Links for adjacent posts.
+remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
+
+// WP version.
+remove_action('wp_head', 'wp_generator');
 
 // desabilita emoticons wordpress
 remove_action('wp_head', 'print_emoji_detection_script', 7);
