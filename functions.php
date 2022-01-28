@@ -527,3 +527,11 @@ function special_nav_class($classes, $item)
   }
   return $classes;
 }
+
+#remove ajuda
+add_filter('contextual_help_list', 'contextual_help_list_remove');
+function contextual_help_list_remove()
+{
+  global $current_screen;
+  $current_screen->remove_help_tabs();
+}
