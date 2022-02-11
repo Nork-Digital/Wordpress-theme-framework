@@ -497,6 +497,15 @@ remove_action('admin_print_scripts', 'print_emoji_detection_script');
 remove_action('wp_print_styles', 'print_emoji_styles');
 remove_action('admin_print_styles', 'print_emoji_styles');
 
+#remove ajuda
+add_filter('contextual_help_list', 'contextual_help_list_remove');
+function contextual_help_list_remove()
+{
+  global $current_screen;
+  $current_screen->remove_help_tabs();
+}
+
+
 // Habilitar Menus
 add_theme_support('menus');
 
@@ -526,12 +535,4 @@ function special_nav_class($classes, $item)
     $classes[] = 'active nav-active';
   }
   return $classes;
-}
-
-#remove ajuda
-add_filter('contextual_help_list', 'contextual_help_list_remove');
-function contextual_help_list_remove()
-{
-  global $current_screen;
-  $current_screen->remove_help_tabs();
 }
