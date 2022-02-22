@@ -35,7 +35,7 @@ function gulpCss() {
         cascade: false,
       })
     )
-    .pipe(gulp.dest("./css"));
+    .pipe(gulp.dest("css/"));
 }
 gulp.task("gulp-css", gulpCss);
 
