@@ -1,0 +1,1 @@
+"use strict";var btnMenu=document.querySelector(".menu-hamburger span");function menuAtivo(){var e=document.querySelector(".nav-menu-header"),t=document.querySelector(".secao-header");e.classList.toggle("menu-hamburger-ativo"),t.classList.toggle("header-hamburger-ativo")}btnMenu.addEventListener("click",menuAtivo);

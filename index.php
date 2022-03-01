@@ -6,7 +6,7 @@ arquivo index. php funciona como um curinga dentro da hierarquia de templates do
 <?php if (have_posts()) {
   while (have_posts()) {
     the_post(); ?>
-    <div class="secao-index">
+    <div class="titulo-bg">
       <h1 class="texto-index"><?php the_title(); ?></h1>
     </div>
     <main class="container"><?php the_content(); ?></main>

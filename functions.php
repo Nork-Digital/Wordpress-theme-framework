@@ -5,7 +5,7 @@ function nork_fw_add_theme_styles()
 {
   //registra o css no wordpress
   wp_register_style('style', get_template_directory_uri() . '/css/style.css', false, null);
-  wp_register_style('fontawesome', get_template_directory_uri() . '/css/all.min.css', false, null);
+
   wp_register_style('slick', get_template_directory_uri() . '/css/slick.css', false, null);
   wp_register_style('slick-theme', get_template_directory_uri() . '/css/slick-theme.css', false, null);
 }
@@ -15,7 +15,6 @@ add_action('wp_enqueue_styles', 'nork_fw_add_theme_styles');
 function nork_fw_add_theme_scripts()
 {
   //registra o js no wordpress
-  wp_register_script('fontawesome', get_template_directory_uri() . '/js/all.min.js', false, null);
   wp_register_script('slick', get_template_directory_uri() . '/slick/slick.min.js', false, null);
   wp_register_script('scripts', get_template_directory_uri() . '/js/script.js', false, null);
 }

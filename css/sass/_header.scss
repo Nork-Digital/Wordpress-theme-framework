@@ -1,0 +1,140 @@
+.secao-header {
+  background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+  transition: 0.6s;
+}
+.logo-header-resp {
+  display: none;
+}
+.cont-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 90%;
+  margin: auto;
+  padding: 16px 0;
+}
+.nav-menu-header ul {
+  display: flex;
+  align-items: center;
+}
+.nav-header-ativo a {
+  color: #fea500 !important;
+}
+.nav-menu-header ul li a {
+  font-weight: bold;
+  margin: 0 32px;
+  color: #fff;
+}
+.redes-header a {
+  color: #fea500;
+  font-size: 26px;
+  margin: 0 8px;
+}
+.menu-hamburger {
+  display: none;
+}
+.menu-hamburger-ativo {
+  display: block !important;
+}
+@media (max-width: 1280px) {
+  .nav-menu-header ul li a {
+    margin: 0 16px;
+  }
+}
+@media (max-width: 1024px) {
+  .nav-header-ativo {
+    background: #fe9000;
+    padding: 10px 0;
+  }
+  .nav-header-ativo a {
+    color: #051c27 !important;
+  }
+  .nav-menu-header,
+  .btns-header,
+  .redes-header {
+    display: none;
+  }
+  .nav-menu-header {
+    visibility: hidden;
+    transition: 0.6s;
+    position: absolute;
+    width: 100%;
+    top: 69px;
+    left: 0;
+    height: 0;
+    display: block;
+    background: #fea500;
+    overflow-y: hidden;
+    border-end-end-radius: 25px;
+    border-end-start-radius: 25px;
+  }
+  .nav-menu-header ul {
+    display: block;
+  }
+  .nav-menu-header ul li {
+    margin: 24px 0;
+  }
+  .nav-menu-header ul li a {
+    color: #051c27;
+  }
+
+  .menu-hamburger-ativo {
+    height: 350px;
+    visibility: visible;
+    overflow-y: auto;
+  }
+  .menu-hamburger {
+    display: unset;
+  }
+  .header-hamburger-ativo {
+    background: #fea500;
+  }
+  .logo-header img {
+    max-width: 55%;
+  }
+  .header-hamburger-ativo .logo-header {
+    display: none;
+  }
+  .header-hamburger-ativo .logo-header-resp {
+    display: block;
+  }
+  .menu-hamburger span {
+    background: none;
+    border: none;
+    display: block;
+    width: 20px;
+    border-top: 3px solid #fea500;
+    transition: 0.6s;
+  }
+  .menu-hamburger span::after,
+  .menu-hamburger span::before {
+    position: relative;
+    content: "";
+    display: block;
+    width: 20px;
+    height: 3px;
+    background: #fea500;
+    margin-top: 5px;
+    transition: 0.3s;
+  }
+  .header-hamburger-ativo .menu-hamburger span {
+    border-top: none;
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    overflow-y: hidden;
+  }
+  .header-hamburger-ativo .menu-hamburger span::before {
+    transform: rotate(135deg);
+    background: #051c27;
+  }
+  .header-hamburger-ativo .menu-hamburger span::after {
+    transform: rotate(-135deg);
+    top: -7px;
+    background: #051c27;
+  }
+}
