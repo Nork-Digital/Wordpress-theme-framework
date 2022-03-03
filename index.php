@@ -9,7 +9,11 @@ arquivo index. php funciona como um curinga dentro da hierarquia de templates do
     <div class="titulo-bg">
       <h1 class="texto-index"><?php the_title(); ?></h1>
     </div>
-    <main class="container"><?php the_content(); ?></main>
+    <main class="container">
+      <section class="column">
+        <?php the_content(); ?>
+      </section>
+    </main>
 
 <?php }
 } ?>
