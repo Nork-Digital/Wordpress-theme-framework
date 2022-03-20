@@ -6,19 +6,20 @@
  * Exibe toda a <head> e abre a tag body
  *
  * @theme Nork Digital Framework
- * 
+ *
  */
+
 ?>
 
 <!DOCTYPE html>
-<html lang="pt-br">
+<html <?php language_attributes(); ?>>
 
 <head>
-  <meta charset="UTF-8">
+  <meta charset="<?php bloginfo('charset'); ?>">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!--puxa título do site do personalizar do WordPress -->
-  <title><?php bloginfo('name') ?> <?php wp_title('|'); ?></title>
+  <title><?php wp_title('|', true, 'right'); ?></title>
 
   <?php if (!get_option('site_icon')) : ?>
     <link href="<?php echo get_template_directory_uri(); ?>/assets/images/favicon.ico" rel="shortcut icon" />
