@@ -1,16 +1,13 @@
-@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap");
-
-$main-color: #707070;
+/*RESET E PADRÃO */
 
 * {
   box-sizing: border-box;
-  font-family: "Raleway", sans-serif;
 }
 
 body {
+  font-family: "Source Sans Pro", sans-serif;
   margin: 0px;
   font-size: 1.125rem;
-  overflow-x: hidden;
 }
 
 ul {
@@ -24,10 +21,8 @@ h1,
 h2,
 h3,
 h4,
-h5,
-label {
+h5 {
   margin: 0px;
-  color: $main-color;
 }
 
 a {

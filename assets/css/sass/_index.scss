@@ -1,0 +1,24 @@
+/* index.php */
+
+.container {
+  max-width: 1000px;
+  margin: 60px auto;
+}
+
+.secao-index {
+  background: gray;
+  min-height: 250px;
+  min-width: 100%;
+}
+
+.texto-index {
+  max-width: 1600px;
+  margin: auto;
+  text-align: center;
+  padding: 80px 0;
+}
+
+.texto-index h1 {
+  font-size: 64px;
+  padding-bottom: 128px;
+}
