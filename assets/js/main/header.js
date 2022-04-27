@@ -1,11 +1,10 @@
 //Menu
-const btnMenu = document.querySelector(".menu-hamburger span");
+const btnMenu = document.querySelector(".menu-hamburger");
 
 function menuAtivo() {
-  const navHeader = document.querySelector(".nav-menu-header");
+  const navHeader = document.querySelector(".menu-header");
   const Header = document.querySelector(".secao-header");
 
-  navHeader.classList.toggle("menu-hamburger-ativo");
-  Header.classList.toggle("header-hamburger-ativo");
+  Header.classList.toggle("menu-ativo");
 }
 btnMenu.addEventListener("click", menuAtivo);

@@ -1,0 +1,26 @@
+@import "mixin";
+.secao-footer {
+  background: #000;
+  @include margin-secao;
+  padding: 32px 0;
+}
+.cont-footer {
+  color: #fff;
+  @include grid;
+  text-align: center;
+}
+.cont-footer div {
+  margin: 32px 0;
+}
+.cont-footer ul li {
+  margin: 16px 0;
+}
+.logo-footer img {
+  margin: auto;
+}
+@media (min-width: 1025px) {
+  .cont-footer {
+    @include d-flex;
+    text-align: start;
+  }
+}

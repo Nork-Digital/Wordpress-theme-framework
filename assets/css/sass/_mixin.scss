@@ -1,0 +1,103 @@
+//Mixin's e variaveis
+$cor-primaria: #ca991f;
+$cor-secundaria: #868686;
+
+@mixin grid {
+  max-width: 90%;
+  margin: auto;
+}
+@mixin d-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+@mixin font-titulos {
+  @media (min-width: 1025px) {
+    font-size: 3rem;
+  }
+  @media (max-width: 1024px) {
+    font-size: 2.25rem;
+  }
+  @media (max-width: 480px) {
+    font-size: 2rem;
+  }
+}
+@mixin font-textos {
+  @media (max-width: 1024px) {
+    font-size: 1rem;
+  }
+  @media (max-width: 480px) {
+    font-size: 0.875rem;
+  }
+}
+@mixin margin-secao {
+  @media (min-width: 1025px) {
+    margin-top: 128px;
+  }
+  @media (max-width: 1024px) {
+    margin-top: 64px;
+  }
+}
+
+@mixin btn-primario {
+  background: transparent;
+  display: inline-block;
+  padding: 8px 16px;
+  font-weight: bold;
+  color: $cor-secundaria;
+  text-transform: uppercase;
+  transition: 0.3s;
+  border: 3px solid transparent;
+  border-bottom: 3px solid $cor-secundaria;
+  box-shadow: 1px 2px 5px rgba($color: #000000, $alpha: 0.2);
+  @include font-textos;
+  @include btn-primario-hover;
+}
+@mixin btn-primario-hover {
+  &:hover {
+    border: 3px solid $cor-primaria;
+    color: $cor-primaria;
+  }
+}
+@mixin btn-secundario {
+  background: transparent;
+  display: inline-block;
+  padding: 8px 32px;
+  font-weight: bold;
+  color: $cor-primaria;
+  transition: 0.3s;
+  border: 3px solid $cor-primaria;
+  box-shadow: 1px 2px 5px rgba($color: #000000, $alpha: 0.2);
+  @include font-textos;
+  @include btn-secundario-hover;
+}
+@mixin btn-secundario-hover {
+  &:hover {
+    background: $cor-secundaria;
+  }
+}
+@mixin titulo-primario {
+  @include font-titulos;
+  color: $cor-primaria;
+}
+@mixin titulo-secundario {
+  @include font-titulos;
+  @include titulo-secundario-after;
+  color: $cor-primaria;
+  font-weight: normal;
+}
+@mixin titulo-secundario-after {
+  &:after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: $cor-primaria;
+    margin-top: 16px;
+  }
+}
+@mixin hero-primario {
+  width: 100%;
+  padding: 256px 0;
+  height: 100vh;
+}
