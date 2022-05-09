@@ -48,4 +48,5 @@
 </head>
 
 <body <?php body_class(); ?>>
+<div class="loader"></div> <!--adiciona o loader, alterar img loader.gif ou remover essa linha -->
   
