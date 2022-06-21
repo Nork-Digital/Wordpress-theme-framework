@@ -8,21 +8,21 @@
 add_filter('sanitize_file_name', 'wp_tweaks_clear_file_name');
 function wp_tweaks_clear_file_name($filename)
 {
-  $sanitized_filename = remove_accents($filename); // Convert to ASCII
+    $sanitized_filename = remove_accents($filename); // Convert to ASCII
 
   // Standard replacements
-  $invalid = [
+    $invalid = [
     ' '   => '-',
     '%20' => '-',
     '_'   => '-',
-  ];
+    ];
 
-  $sanitized_filename = str_replace(array_keys($invalid), array_values($invalid), $sanitized_filename);
-  $sanitized_filename = preg_replace('/[^A-Za-z0-9-\. ]/', '', $sanitized_filename); // Remove all non-alphanumeric except .
-  $sanitized_filename = preg_replace('/\.(?=.*\.)/', '', $sanitized_filename); // Remove all but last .
-  $sanitized_filename = preg_replace('/-+/', '-', $sanitized_filename); // Replace any more than one - in a row
-  $sanitized_filename = str_replace('-.', '.', $sanitized_filename); // Remove last - if at the end
-  $sanitized_filename = strtolower($sanitized_filename); // Lowercase
+    $sanitized_filename = str_replace(array_keys($invalid), array_values($invalid), $sanitized_filename);
+    $sanitized_filename = preg_replace('/[^A-Za-z0-9-\. ]/', '', $sanitized_filename); // Remove all non-alphanumeric except .
+    $sanitized_filename = preg_replace('/\.(?=.*\.)/', '', $sanitized_filename); // Remove all but last .
+    $sanitized_filename = preg_replace('/-+/', '-', $sanitized_filename); // Replace any more than one - in a row
+    $sanitized_filename = str_replace('-.', '.', $sanitized_filename); // Remove last - if at the end
+    $sanitized_filename = strtolower($sanitized_filename); // Lowercase
 
   /**
    * Apply any more sanitization using this filter
@@ -30,9 +30,9 @@ function wp_tweaks_clear_file_name($filename)
    * @var string $sanitized_filename The sanitized filename
    * @var string $filename           Original filename
    */
-  $sanitized_filename = apply_filters('wp_tweaks_sanitize_file_name', $sanitized_filename, $filename);
+    $sanitized_filename = apply_filters('wp_tweaks_sanitize_file_name', $sanitized_filename, $filename);
 
-  return $sanitized_filename;
+    return $sanitized_filename;
 }
 
 
@@ -40,33 +40,35 @@ function wp_tweaks_clear_file_name($filename)
 add_action('wp', 'wp_tweaks_disable_author_pages');
 function wp_tweaks_disable_author_pages()
 {
-  global $wp_query;
-  $disabled = apply_filters('wp_tweaks_disable_author_pages', true);
+    global $wp_query;
+    $disabled = apply_filters('wp_tweaks_disable_author_pages', true);
 
-  if ($disabled && $wp_query->is_author()) {
-    $wp_query->set_404();
-    status_header(404);
-  }
+    if ($disabled && $wp_query->is_author()) {
+        $wp_query->set_404();
+        status_header(404);
+    }
 }
 
 # Disable author page and author search by url
 add_action('wp', 'wp_tweaks_disable_author_query');
 function wp_tweaks_disable_author_query()
 {
-  global $wp_query;
-  $disabled = apply_filters('wp_tweaks_disable_author_query', true);
+    global $wp_query;
+    $disabled = apply_filters('wp_tweaks_disable_author_query', true);
 
-  if ($disabled && isset($_GET['author'])) {
-    $wp_query->set_404();
-    status_header(404);
-  }
+    if ($disabled && isset($_GET['author'])) {
+        $wp_query->set_404();
+        status_header(404);
+    }
 }
 
 #desabilita edição de arquivos no dashboard
 add_action('init', 'wp_tweaks_disallow_file_edit');
 function wp_tweaks_disallow_file_edit()
 {
-  if (!defined('DISALLOW_FILE_EDIT')) define('DISALLOW_FILE_EDIT', true);
+    if (!defined('DISALLOW_FILE_EDIT')) {
+        define('DISALLOW_FILE_EDIT', true);
+    }
 }
 
 
@@ -74,27 +76,27 @@ function wp_tweaks_disallow_file_edit()
 add_action('init', 'wp_tweaks_disable_wp_emojicons');
 function wp_tweaks_disable_wp_emojicons()
 {
-  remove_action('admin_print_styles', 'print_emoji_styles');
-  remove_action('wp_head', 'print_emoji_detection_script', 7);
-  remove_action('admin_print_scripts', 'print_emoji_detection_script');
-  remove_action('wp_print_styles', 'print_emoji_styles');
-  remove_filter('wp_mail', 'wp_staticize_emoji_for_email');
-  remove_filter('the_content_feed', 'wp_staticize_emoji');
-  remove_filter('comment_text_rss', 'wp_staticize_emoji');
-  add_filter('tiny_mce_plugins', 'wp_tweaks_disable_emojicons_tinymce');
-  add_filter('emoji_svg_url', '__return_false');
+    remove_action('admin_print_styles', 'print_emoji_styles');
+    remove_action('wp_head', 'print_emoji_detection_script', 7);
+    remove_action('admin_print_scripts', 'print_emoji_detection_script');
+    remove_action('wp_print_styles', 'print_emoji_styles');
+    remove_filter('wp_mail', 'wp_staticize_emoji_for_email');
+    remove_filter('the_content_feed', 'wp_staticize_emoji');
+    remove_filter('comment_text_rss', 'wp_staticize_emoji');
+    add_filter('tiny_mce_plugins', 'wp_tweaks_disable_emojicons_tinymce');
+    add_filter('emoji_svg_url', '__return_false');
 }
 
 function wp_tweaks_disable_emojicons_tinymce($plugins)
 {
-  return is_array($plugins) ? array_diff($plugins, ['wpemoji']) : [];
+    return is_array($plugins) ? array_diff($plugins, ['wpemoji']) : [];
 }
 
 #Disable sidebar meta widget
 add_action('widgets_init', 'wp_tweaks_disable_meta_widget', 20);
 function wp_tweaks_disable_meta_widget()
 {
-  unregister_widget('WP_Widget_Meta');
+    unregister_widget('WP_Widget_Meta');
 }
 
 
@@ -102,65 +104,65 @@ function wp_tweaks_disable_meta_widget()
 add_filter('comment_form_default_fields', 'wp_tweaks_disable_website_field');
 function wp_tweaks_disable_website_field($field)
 {
-  if (isset($field['url'])) {
-    unset($field['url']);
-  }
-  return $field;
+    if (isset($field['url'])) {
+        unset($field['url']);
+    }
+    return $field;
 }
 
 #Disable wp embed
 add_action('wp_footer', 'wp_tweaks_disable_wp_embed_js');
 function wp_tweaks_disable_wp_embed_js()
 {
-  wp_dequeue_script('wp-embed');
+    wp_dequeue_script('wp-embed');
 }
 
 add_action('init', 'wp_tweaks_disable_oembed', 20);
 function wp_tweaks_disable_oembed()
 {
   // Remove the REST API endpoint.
-  remove_action('rest_api_init', 'wp_oembed_register_route');
+    remove_action('rest_api_init', 'wp_oembed_register_route');
 
   // Turn off oEmbed auto discovery.
-  add_filter('embed_oembed_discover', '__return_false');
+    add_filter('embed_oembed_discover', '__return_false');
 
   // Don't filter oEmbed results.
-  remove_filter('oembed_dataparse', 'wp_filter_oembed_result', 10);
+    remove_filter('oembed_dataparse', 'wp_filter_oembed_result', 10);
 
   // Remove oEmbed discovery links.
-  remove_action('wp_head', 'wp_oembed_add_discovery_links');
+    remove_action('wp_head', 'wp_oembed_add_discovery_links');
 
   // Remove oEmbed-specific JavaScript from the front-end and back-end.
-  remove_action('wp_head', 'wp_oembed_add_host_js');
-  add_filter('tiny_mce_plugins', 'wp_tweaks_disable_embeds_tiny_mce_plugin');
+    remove_action('wp_head', 'wp_oembed_add_host_js');
+    add_filter('tiny_mce_plugins', 'wp_tweaks_disable_embeds_tiny_mce_plugin');
 
   // Remove all embeds rewrite rules.
-  add_filter('rewrite_rules_array', 'wp_tweaks_disable_embeds_rewrites');
+    add_filter('rewrite_rules_array', 'wp_tweaks_disable_embeds_rewrites');
 
   // Remove filter of the oEmbed result before any HTTP requests are made.
-  remove_filter('pre_oembed_result', 'wp_filter_pre_oembed_result', 10);
+    remove_filter('pre_oembed_result', 'wp_filter_pre_oembed_result', 10);
 }
 
 function wp_tweaks_disable_embeds_tiny_mce_plugin($plugins)
 {
-  return array_diff($plugins, ['wpembed']);
+    return array_diff($plugins, ['wpembed']);
 }
 
 function wp_tweaks_disable_embeds_rewrites($rules)
 {
-  foreach ($rules as $rule => $rewrite) {
-    if (false !== strpos($rewrite, 'embed=true')) {
-      unset($rules[$rule]);
+    foreach ($rules as $rule => $rewrite) {
+        if (false !== strpos($rewrite, 'embed=true')) {
+            unset($rules[$rule]);
+        }
     }
-  }
-  return $rules;
+    return $rules;
 }
 
 
 #remover versao do wordpress
 function wpb_remove_version()
 {
-  return '';
+    return '';
 }
 
 add_filter('the_generator', 'wpb_remove_version');
@@ -172,27 +174,27 @@ add_action('wp_dashboard_setup', 'my_custom_dashboard_widgets');
 
 function my_custom_dashboard_widgets()
 {
-  global $wp_meta_boxes;
+    global $wp_meta_boxes;
 
-  wp_add_dashboard_widget('custom_help_widget', 'Nork Digital', 'custom_dashboard_help');
+    wp_add_dashboard_widget('custom_help_widget', 'Nork Digital', 'custom_dashboard_help');
 }
 
 function custom_dashboard_help()
 {
-  echo '<p>Bem-vindo ao seu site! Precisa de ajuda? <a href="mailto:suporte@nork.digital">abrir chamado</a>. Veja alguns tutoriais que podem te ajudar: <a href="https://www.nork.digital/suporte" target="_blank">Help Nork</a></p>';
-  echo '<img src="https://www.nork.digital/wp-content/uploads/2017/10/nork-wordpress.png" />';
+    echo '<p>Bem-vindo ao seu site! Precisa de ajuda? <a href="mailto:suporte@nork.digital">abrir chamado</a>. Veja alguns tutoriais que podem te ajudar: <a href="https://www.nork.digital/suporte" target="_blank">Help Nork</a></p>';
+    echo '<img src="https://www.nork.digital/wp-content/uploads/2017/10/nork-wordpress.png" />';
 }
 #remover footer
 function remove_footer_admin()
 {
-  echo 'Desenvolvido por <a href="https://www.nork.digital" target="_blank">Nork Digital</a> | Precisa de ajuda? <a href="mailto:suporte@nork.digital" target="_blank">Suporte</a></p>';
+    echo 'Desenvolvido por <a href="https://www.nork.digital" target="_blank">Nork Digital</a> | Precisa de ajuda? <a href="mailto:suporte@nork.digital" target="_blank">Suporte</a></p>';
 }
 add_filter('admin_footer_text', 'remove_footer_admin');
 
 #remover feedback de erro wordpress
 function no_wordpress_errors()
 {
-  return 'Usuário ou senha inválido, tente novamente.';
+    return 'Usuário ou senha inválido, tente novamente.';
 }
 add_filter('login_errors', 'no_wordpress_errors');
 
@@ -201,7 +203,8 @@ remove_action('welcome_panel', 'wp_welcome_panel');
 
 //Styling wp-login page
 function login_styles()
-{ ?>
+{
+    ?>
   <style type="text/css">
     body {
       background: #e8b800 !important;
@@ -258,13 +261,13 @@ add_action('login_enqueue_scripts', 'login_styles');
 // Link logo login
 function my_login_logo_url()
 {
-  return get_bloginfo('url');
+    return get_bloginfo('url');
 }
 add_filter('login_headerurl', 'my_login_logo_url');
 // Mudar nome ao passar o mouse
 function my_login_logo_url_title()
 {
-  return 'Nork Digital';
+    return 'Nork Digital';
 }
 add_filter('login_headertitle', 'my_login_logo_url_title');
 
@@ -274,7 +277,7 @@ add_action('after_setup_theme', 'wp_tweaks_remove_shortlink', 20);
 function wp_tweaks_remove_shortlink()
 {
   // remove HTML meta tag
-  remove_action('wp_head', 'wp_shortlink_wp_head');
+    remove_action('wp_head', 'wp_shortlink_wp_head');
 }
 
 
@@ -283,10 +286,10 @@ add_filter('style_loader_src', 'wp_tweaks_remove_query_string_from_scripts', 10,
 add_filter('script_loader_src', 'wp_tweaks_remove_query_string_from_scripts', 10, 2);
 function wp_tweaks_remove_query_string_from_scripts($src)
 {
-  if (strpos($src, '?ver=')) {
-    $src = remove_query_arg('ver', $src);
-  }
-  return $src;
+    if (strpos($src, '?ver=')) {
+        $src = remove_query_arg('ver', $src);
+    }
+    return $src;
 }
 
 
@@ -325,9 +328,11 @@ remove_action('wp_head', 'wlwmanifest_link');
 // desabilitar self pingbacks
 function disable_pingback(&$links)
 {
-  foreach ($links as $l => $link)
-    if (0 === strpos($link, get_option('home')))
-      unset($links[$l]);
+    foreach ($links as $l => $link) {
+        if (0 === strpos($link, get_option('home'))) {
+            unset($links[$l]);
+        }
+    }
 }
 add_action('pre_ping', 'disable_pingback');
 
@@ -336,17 +341,17 @@ add_action('pre_ping', 'disable_pingback');
 add_action('init', 'stop_heartbeat', 1);
 function stop_heartbeat()
 {
-  wp_deregister_script('heartbeat');
+    wp_deregister_script('heartbeat');
 }
 
 // desabilitar dashicons
 
 function wpdocs_dequeue_dashicon()
 {
-  if (current_user_can('update_core')) {
-    return;
-  }
-  wp_deregister_style('dashicons');
+    if (current_user_can('update_core')) {
+        return;
+    }
+    wp_deregister_style('dashicons');
 }
 add_action('wp_enqueue_scripts', 'wpdocs_dequeue_dashicon');
 
@@ -360,30 +365,30 @@ show_admin_bar(false);
 add_action('admin_head', 'wp_tweaks_hide_update_notice', 1);
 function wp_tweaks_hide_update_notice()
 {
-  if (!current_user_can('update_core')) {
-    remove_action('admin_notices', 'update_nag', 3);
-  }
+    if (!current_user_can('update_core')) {
+        remove_action('admin_notices', 'update_nag', 3);
+    }
 }
 
 # Remove "+ New" from admin bar
 add_action('wp_before_admin_bar_render', 'wp_tweaks_remove_admin_bar_new_content', 20);
 function wp_tweaks_remove_admin_bar_new_content()
 {
-  global $wp_admin_bar;
-  $wp_admin_bar->remove_node('new-content');
+    global $wp_admin_bar;
+    $wp_admin_bar->remove_node('new-content');
 }
 
 #Remove "Howdy" from admin bar
 add_action('admin_bar_menu', 'wp_tweaks_remove_howdy', 11);
 function wp_tweaks_remove_howdy($wp_admin_bar)
 {
-  $current_user = wp_get_current_user();
-  $avatar = get_avatar($current_user->ID, 28);
+    $current_user = wp_get_current_user();
+    $avatar = get_avatar($current_user->ID, 28);
 
-  $wp_admin_bar->add_node([
+    $wp_admin_bar->add_node([
     'id' => 'my-account',
     'title' => $current_user->display_name . $avatar
-  ]);
+    ]);
 }
 
 
@@ -397,10 +402,10 @@ add_filter('use_default_gallery_style', '__return_false');
  */
 function odin_modify_category_rel($text)
 {
-  $search = array('rel="category"', 'rel="category tag"');
-  $text = str_replace($search, 'rel="nofollow"', $text);
+    $search = array('rel="category"', 'rel="category tag"');
+    $text = str_replace($search, 'rel="nofollow"', $text);
 
-  return $text;
+    return $text;
 }
 
 add_filter('wp_list_categories', 'odin_modify_category_rel');
@@ -411,7 +416,7 @@ add_filter('the_category', 'odin_modify_category_rel');
  */
 function odin_modify_tag_rel($taglink)
 {
-  return str_replace('rel="tag">', 'rel="nofollow">', $taglink);
+    return str_replace('rel="tag">', 'rel="nofollow">', $taglink);
 }
 
 add_filter('wp_tag_cloud', 'odin_modify_tag_rel');
@@ -427,7 +432,7 @@ add_filter('the_tags', 'odin_modify_tag_rel');
  */
 function disable_emojis_tinymce($plugins)
 {
-  return is_array($plugins) ? array_diff($plugins, array('wpemoji')) : array();
+    return is_array($plugins) ? array_diff($plugins, array('wpemoji')) : array();
 }
 
 add_filter('tiny_mce_plugins', 'disable_emojis_tinymce');
@@ -437,9 +442,9 @@ add_filter('tiny_mce_plugins', 'disable_emojis_tinymce');
  */
 function odin_admin_adminbar_remove_logo()
 {
-  global $wp_admin_bar;
+    global $wp_admin_bar;
 
-  $wp_admin_bar->remove_menu('wp-logo');
+    $wp_admin_bar->remove_menu('wp-logo');
 }
 
 add_action('wp_before_admin_bar_render', 'odin_admin_adminbar_remove_logo');
@@ -450,17 +455,17 @@ add_action('wp_before_admin_bar_render', 'odin_admin_adminbar_remove_logo');
  */
 function odin_admin_remove_dashboard_widgets()
 {
-  remove_meta_box('dashboard_right_now', 'dashboard', 'normal');
-  remove_meta_box('dashboard_recent_comments', 'dashboard', 'normal');
-  remove_meta_box('dashboard_quick_press', 'dashboard', 'side');
-  remove_meta_box('dashboard_incoming_links', 'dashboard', 'normal');
-  remove_meta_box('dashboard_plugins', 'dashboard', 'normal');
-  remove_meta_box('dashboard_primary', 'dashboard', 'side');
-  remove_meta_box('dashboard_secondary', 'dashboard', 'side');
-  remove_meta_box('dashboard_recent_drafts', 'dashboard', 'side');
+    remove_meta_box('dashboard_right_now', 'dashboard', 'normal');
+    remove_meta_box('dashboard_recent_comments', 'dashboard', 'normal');
+    remove_meta_box('dashboard_quick_press', 'dashboard', 'side');
+    remove_meta_box('dashboard_incoming_links', 'dashboard', 'normal');
+    remove_meta_box('dashboard_plugins', 'dashboard', 'normal');
+    remove_meta_box('dashboard_primary', 'dashboard', 'side');
+    remove_meta_box('dashboard_secondary', 'dashboard', 'side');
+    remove_meta_box('dashboard_recent_drafts', 'dashboard', 'side');
 
   // Yoast's SEO Plugin Widget
-  remove_meta_box('yoast_db_widget', 'dashboard', 'normal');
+    remove_meta_box('yoast_db_widget', 'dashboard', 'normal');
 }
 
 add_action('wp_dashboard_setup', 'odin_admin_remove_dashboard_widgets');
@@ -482,6 +487,14 @@ remove_action('admin_print_styles', 'print_emoji_styles');
 add_filter('contextual_help_list', 'contextual_help_list_remove');
 function contextual_help_list_remove()
 {
-  global $current_screen;
-  $current_screen->remove_help_tabs();
+    global $current_screen;
+    $current_screen->remove_help_tabs();
 }
+
+
+#Quebra de linha no editor visual usando a tag [br]
+function line_break_shortcode()
+{
+    return '<br />';
+}
+add_shortcode('br', 'line_break_shortcode');
