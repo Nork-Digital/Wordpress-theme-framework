@@ -12,7 +12,11 @@
 get_header();
 ?>
 
-<p><?php esc_html_e('Parece que nada foi encontrado neste local. Talvez tente uma pesquisa?'); ?></p>
-<?php get_search_form(); ?>
+<section class="secao-404">
+  <h1>404</h1>
+  <h2>Página não encontrada!</h2>
+
+  <a href="/">Voltar para o ínicio</a>
+</section>
 
 <?php get_footer();

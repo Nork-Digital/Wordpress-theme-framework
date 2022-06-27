@@ -1,0 +1,16 @@
+@import "mixin";
+.secao-404 {
+  margin: 8rem 0;
+  padding: 10% 0;
+  text-align: center;
+}
+.secao-404 h1 {
+  font-size: 3.5rem;
+}
+.secao-404 h2 {
+  @include font-titulos;
+  margin: 2rem 0;
+}
+.secao-404 a {
+  @include btn-primario;
+}
