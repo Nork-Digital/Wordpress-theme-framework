@@ -530,3 +530,29 @@ function restrict_mime($mimes)
     );
     return $mimes;
 }
+
+
+/*
+* seleciona automaticamente a variação woocommerce
+* remover comentário caso use woocommerce
+
+add_filter('woocommerce_dropdown_variation_attribute_options_args', 'fun_select_default_option', 10, 1);
+function fun_select_default_option($args)
+{
+
+    if (count($args['options']) > 0) { //Check the count of available options in dropdown
+        $args['selected'] = $args['options'][0];
+    }
+    return $args;
+}
+*/
+
+/*
+ * Remove password strength check.
+* remover comentário caso use woocommerce
+function iconic_remove_password_strength()
+{
+    wp_dequeue_script('wc-password-strength-meter');
+}
+add_action('wp_print_scripts', 'iconic_remove_password_strength', 10);
+*/
